@@ -1,8 +1,5 @@
-# ParaRun -- Computational Experiment at Scale
+# HC Phase Transition Analysis 
 
-## About
-- ParaRun is a simple template for running a massive computational experiment 
-using Dask or another scaling manager
 
 ## Install
 - ``pip3 install -r requirements.txt''
@@ -13,7 +10,7 @@ using Dask or another scaling manager
  - use flag ``--dask'' when running the file containing ``main()''
 
 ## Usage
- - Replace function ``evaluate_iteration''
+ - Setup parameters in ``params.yaml''
  - Run main file (e.g.): ``python para_run.py --dask''
 
 
