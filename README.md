@@ -1,8 +1,7 @@
 # ParaRun -- Computational Experiment at Scale
 
 ## About
-- ParaRun is a simple template for running a massive computational experiment 
-using Dask or another scaling manager
+- ParaRun is a simple template for running massive computational experiments 
 
 ## Install
 - ``pip3 install -r requirements.txt''
