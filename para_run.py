@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import yaml
 from datetime import datetime
+from evaluate_iteration import evaluate_iteration
 
 import logging
 logging.basicConfig(level=logging.INFO)
@@ -111,10 +112,6 @@ def main() :
     args = parser.parse_args()
     #
     
-    def evaluate_iteration(x, y) :
-        import time; time.sleep(1)
-        return np.power(y, x)
-
     exp = ParaRun(args.p)
     if args.dask :
         exp.Dask_run(evaluate_iteration)
