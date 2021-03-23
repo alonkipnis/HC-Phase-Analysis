@@ -13,6 +13,7 @@ using Dask or another scaling manager
  - use flag ``--dask'' when running the file containing ``main()''
 
 ## Usage
+ - Setup parameters in ``params.yaml''
  - Replace function ``evaluate_iteration''
  - Run main file (e.g.): ``python para_run.py --dask''
 
