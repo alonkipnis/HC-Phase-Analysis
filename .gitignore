@@ -2,4 +2,6 @@
 *PhaseDiagram
 *.ipynb
 *__pychache__
-*Dask*
+*dask*
+*.env
+*env
