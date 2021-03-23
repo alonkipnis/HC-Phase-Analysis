@@ -2,3 +2,4 @@
 *PhaseDiagram
 *.ipynb
 *__pychache__
+*Dask*
