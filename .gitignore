@@ -1,0 +1,4 @@
+*.csv
+*PhaseDiagram
+*.ipynb
+*__pychache__
