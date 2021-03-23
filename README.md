@@ -12,5 +12,9 @@ using Dask or another scaling manager
  - install 'dask' and 'dask-distributed'
  - use flag ``--dask'' when running the file containing ``main()''
 
+## Usage
+ - Replace function ``evaluate_iteration''
+ - Run main file (e.g.): ``python para_run.py --dask''
+
 
 
