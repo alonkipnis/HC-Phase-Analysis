@@ -124,13 +124,13 @@ def main() :
     args = parser.parse_args()
     #
     
-    exp = ParaRun(args.p)
+    exper = ParaRun(args.p)
     if args.dask :
-        exp.Dask_run(evaluate_iteration)
+        exper.Dask_run(evaluate_iteration)
     else :
-        exp.run(evaluate_iteration)
+        exper.run(evaluate_iteration)
 
-    exp.to_file(args.o)
+    exper.to_file(args.o)
 
 if __name__ == '__main__':
     main()
