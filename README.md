@@ -1,13 +1,17 @@
 # HC Phase Transition Analysis 
 
+## About
+Explore the asymptotic performance of HC and other tests over multiple configurations
 
-## Install
-- ``pip3 install -r requirements.txt''
+## Usage
+ - install ``requirements.txt``
+ - Setup parameters in ``params.yaml``
+ - Setup experiment atomic function ``evaluate_iteration``
+ - Run main file (e.g.): ``python para_run.py --dask``
 
-## Instructions for using Dask ([https://dask.org/]):
- - install `requirements.txt'
+### With Dask (https://dask.org/):
  - install 'dask' and 'dask-distributed'
- - use flag ``--dask'' when running the file containing ``main()''
+ - use ``--dask`` when running the file containing ``main()``
 
 ## Usage
  - Setup parameters in ``params.yaml''
