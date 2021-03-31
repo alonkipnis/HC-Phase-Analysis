@@ -119,31 +119,36 @@ def main() :
     parser.add_argument('-o', type=str, help='output file', default='results.csv')
     parser.add_argument('-p', type=str, help='yaml parameters file.', default='params.yaml')
     parser.add_argument('--dask', action='store_true')
-    parser.add_argument('--local', action='store_true')
+    parser.add_argument('--slurm', action='store_true')
     args = parser.parse_args()
     #
     
     cluster=None
+    client=None
     exper = ParaRun(args.p)
     if args.dask :
-        if args.local :
-            logging.info(" Starting a local Dask cluster...")
-            client = Client()
-        else :
-            logging.info(" Starting Dask cluster...")
+        if args.slurm :
+            logging.info(" Starting a Dask cluster on a SLURM cluster...")
             cluster = start_Dask_cluster()
             logging.info(" Connecting Dask client...")
             client = Client(cluster)
-
+        else :
+            logging.info(" Starting a local Dask cluster...")
+            client = Client()
+        
         logging.info(f" Client info:")
         logging.info(f"\t Services: {client.scheduler_info()['services']}")
         exper.Dask_run(evaluate_iteration)
+        exper.to_file(args.o)
+        if cluster :
+            cluster.close()
+        if client :
+            client.close()
+    
     else :
         exper.run(evaluate_iteration)
-    exper.to_file(args.o)
-    if cluster :
-        cluster.close()
-    client.close()
+        exper.to_file(args.o)
+    
 
 if __name__ == '__main__':
     main()
