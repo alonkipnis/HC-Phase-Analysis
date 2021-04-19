@@ -8,17 +8,15 @@ import logging
 logging.basicConfig(level=logging.INFO)
 import argparse
 
-from evaluate_iteration import evaluate_iteration
-
 import dask
 import dask.dataframe as dd
-from dask.distributed import Client
+from dask.distributed import Client, progress
 from dask_jobqueue import SLURMCluster
 
     
 class ParaRun :
-
-    def __init__(self, param_file='params.yaml', func) :
+    def __init__(self, func, param_file='params.yaml') :
+        print(param_file)
         with open(param_file) as file:
             self._params = yaml.load(file, Loader=yaml.FullLoader)
         logging.info(f" Reading parameters from {param_file}.")
@@ -64,7 +62,7 @@ class ParaRun :
         func    atomic experiment function
         """
         logging.info(f" Running...")
-        y = self._conf.iloc[:,1:].apply(lambda row : func(*row), axis=1)
+        y = self._conf.iloc[:,1:].apply(lambda row : self.func(*row), axis=1)
         
         #self._out = pd.json_normalize(y)
         self._out = y
@@ -88,6 +86,11 @@ class ParaRun :
     
         self._out['func'] = str(func.__name__)
         self._out['time_start'] = str(datetime.now())
+
+        # fut = client.map(func, )
+        # progress(fut)
+        # res = client.gather(fut)
+
         y = x.compute()
         self._out = pd.DataFrame(y)
         self._out['time_end'] = str(datetime.now())
@@ -112,6 +115,11 @@ def start_Dask_cluster(config='sherlock-hns') : # or sherlock'
         params = yaml.load(file, Loader=yaml.FullLoader)
     return SLURMCluster(**params[config]) # Section to use from jobqueue.yaml configuration file.
 
+def run_on_cluster(param_file, func, out_file) :
+    exper.ParaRun(params_file, func)
+    exper.Dask_run()
+    exper.to_file(out_file)
+
 def main() :
     parser = argparse.ArgumentParser(description='Launch experiment')
     parser.add_argument('-o', type=str, help='output file', default='results.csv')
@@ -123,11 +131,12 @@ def main() :
     
     cluster=None
     client=None
-    exper = ParaRun(args.p, evaluate_iteration)
+    
     if args.dask :
         if args.slurm :
             logging.info(" Starting a Dask cluster on a SLURM cluster...")
             cluster = start_Dask_cluster()
+            cluster.scale(10)
             logging.info(" Connecting Dask client...")
             client = Client(cluster)
         else :
@@ -136,14 +145,16 @@ def main() :
         
         logging.info(f" Client info:")
         logging.info(f"\t Services: {client.scheduler_info()['services']}")
-        exper.Dask_run(client)
-        exper.to_file(args.o)
+
+        run_on_cluster(args.p, evaluate_iteration. args.o)
+        
         if cluster :
             cluster.close()
         if client :
             client.close()
     
     else :
+        exper = ParaRun(args.p, evaluate_iteration)
         exper.run()
         exper.to_file(args.o)
     
