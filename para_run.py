@@ -18,7 +18,7 @@ from dask_jobqueue import SLURMCluster
     
 class ParaRun :
 
-    def __init__(self, param_file='params.yaml') :
+    def __init__(self, param_file='params.yaml', func) :
         with open(param_file) as file:
             self._params = yaml.load(file, Loader=yaml.FullLoader)
         logging.info(f" Reading parameters from {param_file}.")
@@ -27,7 +27,7 @@ class ParaRun :
 
         self._out = pd.DataFrame()
         self._npartitions = 4
-
+        self._func = func
         
     def _conf_generator(self) :
         def gen_series(var) :
@@ -55,7 +55,7 @@ class ParaRun :
                                 yield {'itr' : itr, 'n' : n, 'N': N,
                                        'ep' : eps, 'mu' : mu, 'xi' : xi} 
         
-    def run(self, func) :
+    def run(self) :
         """
         Apply atomic expriment function to each row in configuration table
 
@@ -70,7 +70,7 @@ class ParaRun :
         self._out = y
         logging.info(f" Completed.")
 
-    def Dask_run(self, func) :
+    def Dask_run(self, client) :
         """
         Apply atomic expriment function to each row in configuration table
 
@@ -86,15 +86,13 @@ class ParaRun :
         x = ddf.apply(lambda row : func(*row), axis=1, meta=dict)
         logging.info(" Sending futures...")
     
-        y = x.compute()
-        
-
-        self._out = pd.DataFrame(y)
         self._out['func'] = str(func.__name__)
-        self._out['time'] = str(datetime.now())
-
+        self._out['time_start'] = str(datetime.now())
+        y = x.compute()
+        self._out = pd.DataFrame(y)
+        self._out['time_end'] = str(datetime.now())
+        
         logging.info(f" Completed.")
-        client.close()
 
     def to_file(self, filename="results.csv") :
         if self._out.empty :
@@ -125,7 +123,7 @@ def main() :
     
     cluster=None
     client=None
-    exper = ParaRun(args.p)
+    exper = ParaRun(args.p, evaluate_iteration)
     if args.dask :
         if args.slurm :
             logging.info(" Starting a Dask cluster on a SLURM cluster...")
@@ -138,7 +136,7 @@ def main() :
         
         logging.info(f" Client info:")
         logging.info(f"\t Services: {client.scheduler_info()['services']}")
-        exper.Dask_run(evaluate_iteration)
+        exper.Dask_run(client)
         exper.to_file(args.o)
         if cluster :
             cluster.close()
@@ -146,7 +144,7 @@ def main() :
             client.close()
     
     else :
-        exper.run(evaluate_iteration)
+        exper.run()
         exper.to_file(args.o)
     
 
