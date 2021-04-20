@@ -68,7 +68,7 @@ class ParaRun :
         self._out = y
         logging.info(f" Completed.")
 
-    def Dask_run(self, client) :
+    def Dask_run(self) :
         """
         Apply atomic expriment function to each row in configuration table
 
@@ -81,10 +81,10 @@ class ParaRun :
         logging.info(f" Running on Dask...")
         ddf = dd.from_pandas(self._conf.iloc[:,1:], npartitions=self._npartitions)
         
-        x = ddf.apply(lambda row : func(*row), axis=1, meta=dict)
+        x = ddf.apply(lambda row : self._func(*row), axis=1, meta=dict)
         logging.info(" Sending futures...")
     
-        self._out['func'] = str(func.__name__)
+        self._out['func'] = str(self._func.__name__)
         self._out['time_start'] = str(datetime.now())
 
         # fut = client.map(func, )
@@ -114,47 +114,32 @@ def start_Dask_cluster(config='sherlock-hns') : # or sherlock'
     with open('slurm_conf.yaml') as file :
         params = yaml.load(file, Loader=yaml.FullLoader)
     return SLURMCluster(**params[config]) # Section to use from jobqueue.yaml configuration file.
-
-def run_on_cluster(param_file, func, out_file) :
-    exper.ParaRun(params_file, func)
-    exper.Dask_run()
-    exper.to_file(out_file)
+    
 
 def main() :
     parser = argparse.ArgumentParser(description='Launch experiment')
     parser.add_argument('-o', type=str, help='output file', default='results.csv')
     parser.add_argument('-p', type=str, help='yaml parameters file.', default='params.yaml')
     parser.add_argument('--dask', action='store_true')
-    parser.add_argument('--slurm', action='store_true')
+    parser.add_argument('--address', type=str, default="")
     args = parser.parse_args()
     #
     
-    cluster=None
-    client=None
-    
     if args.dask :
-        if args.slurm :
-            logging.info(" Starting a Dask cluster on a SLURM cluster...")
-            cluster = start_Dask_cluster()
-            cluster.scale(10)
-            logging.info(" Connecting Dask client...")
-            client = Client(cluster)
-        else :
-            logging.info(" Starting a local Dask cluster...")
+        logging.info(f" Using Dask:")
+        if args.address == "" :
+            logging.info(f" Starting a local cluster")
             client = Client()
+        else :
+            logging.info(f" Connecting to existing cluster at {args.address}")
+            client = Client(args.address)
+        logging.info(f" Dashboard at {client.dashboard_link}")
+        exper = ParaRun(evaluate_iteration, args.p)
+        exper.Dask_run()
+        exper.to_file(args.o)
         
-        logging.info(f" Client info:")
-        logging.info(f"\t Services: {client.scheduler_info()['services']}")
-
-        run_on_cluster(args.p, evaluate_iteration. args.o)
-        
-        if cluster :
-            cluster.close()
-        if client :
-            client.close()
-    
     else :
-        exper = ParaRun(args.p, evaluate_iteration)
+        exper = ParaRun(evaluate_iteration, args.p)
         exper.run()
         exper.to_file(args.o)
     
