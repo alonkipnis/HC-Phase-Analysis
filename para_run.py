@@ -20,12 +20,13 @@ class ParaRun :
         with open(param_file) as file:
             self._params = yaml.load(file, Loader=yaml.FullLoader)
         logging.info(f" Reading parameters from {param_file}.")
-        self._conf = pd.DataFrame(self._conf_generator())
-        logging.info(f" {len(self._conf)} configurations generated.")
 
         self._out = pd.DataFrame()
         self._npartitions = 4
         self._func = func
+
+        self._conf = pd.DataFrame(self._conf_generator())
+        logging.info(f" {len(self._conf)} configurations generated.")
         
     def _conf_generator(self) :
         def gen_series(var) :
@@ -68,7 +69,7 @@ class ParaRun :
         self._out = y
         logging.info(f" Completed.")
 
-    def Dask_run(self) :
+    def Dask_run(self, client) :
         """
         Apply atomic expriment function to each row in configuration table
 
@@ -79,23 +80,42 @@ class ParaRun :
         """
 
         logging.info(f" Running on Dask...")
-        ddf = dd.from_pandas(self._conf.iloc[:,1:], npartitions=self._npartitions)
+
+        logging.info(" Mapping to futures...")
+
+        variables = self._conf.columns.tolist()
+        variables.remove('itr')
+        self._conf.loc[:,'job_id'] = 'null'
+        futures=[]
+
+        df_vars = self._conf.filter(items=variables)
+        for r in df_vars.iterrows() :
+            fut = client.submit(self._func, **r[1])
+            self._conf.loc[r[0], 'job_id'] = fut.key
+            futures += [fut]
         
-        x = ddf.apply(lambda row : self._func(*row), axis=1, meta=dict)
         logging.info(" Sending futures...")
-    
-        self._out['func'] = str(self._func.__name__)
+        progress(futures)
         self._out['time_start'] = str(datetime.now())
+
+        keys = [fut.key for fut in futures]
+        #results = pd.DataFrame([fut.result() for fut in futures])
+        results = pd.DataFrame(client.gather(futures), index=keys)
+        logging.info(" Closing client...")
+        client.close()
+        self._out['time_end'] = str(datetime.now())
+        #import pdb; pdb.set_trace()
+        self._out = self._conf.set_index('job_id').join(results, how='left')
+
+        #ddf = dd.from_pandas(self._conf.iloc[:,1:], npartitions=self._npartitions)
+        #x = ddf.apply(lambda row : self._func(*row), axis=1, meta=dict)    
 
         # fut = client.map(func, )
         # progress(fut)
         # res = client.gather(fut)
-
-        y = x.compute()
-        self._out = pd.DataFrame(y)
-        self._out['time_end'] = str(datetime.now())
+        # y = x.compute()
+        # self._out = pd.DataFrame(y)
         
-        logging.info(f" Completed.")
 
     def to_file(self, filename="results.csv") :
         if self._out.empty :
@@ -106,11 +126,11 @@ class ParaRun :
             "Did call gen_conf_table() ")
 
         logging.info(f" Saving results...")
-        results = pd.concat([self._conf, self._out], axis=1)
+        results = self._out
         logging.info(f" Saved {len(results)} records in {filename}.")
         results.to_csv(filename)
 
-def start_Dask_cluster(config='sherlock-hns') : # or sherlock'
+def start_Dask_on_Slurm(config='sherlock-hns') : # or sherlock'
     with open('slurm_conf.yaml') as file :
         params = yaml.load(file, Loader=yaml.FullLoader)
     return SLURMCluster(**params[config]) # Section to use from jobqueue.yaml configuration file.
@@ -135,7 +155,7 @@ def main() :
             client = Client(args.address)
         logging.info(f" Dashboard at {client.dashboard_link}")
         exper = ParaRun(evaluate_iteration, args.p)
-        exper.Dask_run()
+        exper.Dask_run(client)
         exper.to_file(args.o)
         
     else :
