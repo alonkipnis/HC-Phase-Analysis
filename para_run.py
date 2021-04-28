@@ -9,9 +9,7 @@ logging.basicConfig(level=logging.INFO)
 import argparse
 
 import dask
-import dask.dataframe as dd
 from dask.distributed import Client, progress
-from dask_jobqueue import SLURMCluster
 
     
 class ParaRun :
@@ -101,7 +99,7 @@ class ParaRun :
         keys = [fut.key for fut in futures]
         #results = pd.DataFrame([fut.result() for fut in futures])
         results = pd.DataFrame(client.gather(futures), index=keys)
-        logging.info(" Closing client...")
+        logging.info(" Terminating client...")
         client.close()
         self._out['time_end'] = str(datetime.now())
         #import pdb; pdb.set_trace()
@@ -128,13 +126,7 @@ class ParaRun :
         logging.info(f" Saving results...")
         results = self._out
         logging.info(f" Saved {len(results)} records in {filename}.")
-        results.to_csv(filename)
-
-def start_Dask_on_Slurm(config='sherlock-hns') : # or sherlock'
-    with open('slurm_conf.yaml') as file :
-        params = yaml.load(file, Loader=yaml.FullLoader)
-    return SLURMCluster(**params[config]) # Section to use from jobqueue.yaml configuration file.
-    
+        results.to_csv(filename)    
 
 def main() :
     parser = argparse.ArgumentParser(description='Launch experiment')
