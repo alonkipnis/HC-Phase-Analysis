@@ -93,7 +93,7 @@ class ParaRun :
             futures += [fut]
         
         logging.info(" Sending futures...")
-        progress(futures)
+        #progress(futures)
         self._out['time_start'] = str(datetime.now())
 
         keys = [fut.key for fut in futures]
