@@ -1,0 +1,680 @@
+<?xml version='1.0' encoding='utf-8' ?>
+
+<!-- build 20211.21.0420.1112                               -->
+<workbook source-build='2021.1.1 (20211.21.0420.1112)' source-platform='mac' version='18.1' xmlns:user='http://www.tableausoftware.com/xml/user'>
+  <document-format-change-manifest>
+    <Heatmap />
+    <_.fcp.MarkAnimation.true...MarkAnimation />
+    <_.fcp.ObjectModelEncapsulateLegacy.true...ObjectModelEncapsulateLegacy />
+    <_.fcp.ObjectModelTableType.true...ObjectModelTableType />
+    <_.fcp.SchemaViewerObjectModel.true...SchemaViewerObjectModel />
+    <SheetIdentifierTracking />
+    <WindowsPersistSimpleIdentifiers />
+  </document-format-change-manifest>
+  <preferences>
+    <preference name='ui.encoding.shelf.height' value='24' />
+    <preference name='ui.shelf.height' value='26' />
+  </preferences>
+  <datasources>
+    <datasource caption='results' inline='true' name='federated.1qfn7s51mvlxrl1gfs65l1eual9u' version='18.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='results' name='textscan.09ut2mv0tiog3710ad6lx0o6y0xw'>
+            <connection class='textscan' directory='/Users/kipnisal/DS/ParaRun' filename='results.csv' password='' server='' />
+          </named-connection>
+          <named-connection caption='results (2)' name='textscan.0bxmehf1yuuase103nbcj1t8zby1'>
+            <connection class='textscan' directory='/Users/kipnisal/DS/ParaRun' filename='results.csv' password='' server='' />
+          </named-connection>
+          <named-connection caption='results (3)' name='textscan.1ogkv6d1cx9ifp15udql61ybtu1l'>
+            <connection class='textscan' directory='/Users/kipnisal/DS/ParaRun' filename='results.csv' password='' server='' />
+          </named-connection>
+        </named-connections>
+        <_.fcp.ObjectModelEncapsulateLegacy.false...relation connection='textscan.1ogkv6d1cx9ifp15udql61ybtu1l' name='results.csv' table='[results#csv]' type='table'>
+          <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+            <column datatype='string' name='job_id' ordinal='0' />
+            <column datatype='integer' name='itr' ordinal='1' />
+            <column datatype='integer' name='n' ordinal='2' />
+            <column datatype='integer' name='N' ordinal='3' />
+            <column datatype='real' name='be' ordinal='4' />
+            <column datatype='real' name='r' ordinal='5' />
+            <column datatype='real' name='xi' ordinal='6' />
+            <column datatype='real' name='HC_random' ordinal='7' />
+            <column datatype='real' name='minPv_random' ordinal='8' />
+            <column datatype='real' name='HC' ordinal='9' />
+            <column datatype='real' name='minPv' ordinal='10' />
+            <column datatype='real' name='HC_one_NR' ordinal='11' />
+            <column datatype='real' name='minPv_one_NR' ordinal='12' />
+            <column datatype='real' name='chisq' ordinal='13' />
+            <column datatype='real' name='cos' ordinal='14' />
+            <column datatype='real' name='HC_stripes' ordinal='15' />
+            <column datatype='real' name='minPv_stripes' ordinal='16' />
+          </columns>
+        </_.fcp.ObjectModelEncapsulateLegacy.false...relation>
+        <_.fcp.ObjectModelEncapsulateLegacy.true...relation connection='textscan.1ogkv6d1cx9ifp15udql61ybtu1l' name='results.csv' table='[results#csv]' type='table'>
+          <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+            <column datatype='string' name='job_id' ordinal='0' />
+            <column datatype='integer' name='itr' ordinal='1' />
+            <column datatype='integer' name='n' ordinal='2' />
+            <column datatype='integer' name='N' ordinal='3' />
+            <column datatype='real' name='be' ordinal='4' />
+            <column datatype='real' name='r' ordinal='5' />
+            <column datatype='real' name='xi' ordinal='6' />
+            <column datatype='real' name='HC_random' ordinal='7' />
+            <column datatype='real' name='minPv_random' ordinal='8' />
+            <column datatype='real' name='HC' ordinal='9' />
+            <column datatype='real' name='minPv' ordinal='10' />
+            <column datatype='real' name='HC_one_NR' ordinal='11' />
+            <column datatype='real' name='minPv_one_NR' ordinal='12' />
+            <column datatype='real' name='chisq' ordinal='13' />
+            <column datatype='real' name='cos' ordinal='14' />
+            <column datatype='real' name='HC_stripes' ordinal='15' />
+            <column datatype='real' name='minPv_stripes' ordinal='16' />
+          </columns>
+        </_.fcp.ObjectModelEncapsulateLegacy.true...relation>
+        <metadata-records>
+          <metadata-record class='capability'>
+            <remote-name />
+            <remote-type>0</remote-type>
+            <parent-name>[results.csv]</parent-name>
+            <remote-alias />
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='character-set'>&quot;UTF-8&quot;</attribute>
+              <attribute datatype='string' name='collation'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='field-delimiter'>&quot;,&quot;</attribute>
+              <attribute datatype='string' name='header-row'>&quot;true&quot;</attribute>
+              <attribute datatype='string' name='locale'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='single-char'>&quot;&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>job_id</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[job_id]</local-name>
+            <parent-name>[results.csv]</parent-name>
+            <remote-alias>job_id</remote-alias>
+            <ordinal>0</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[results.csv_005663A61A684C058E8FD93F3B118D48]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>itr</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[itr]</local-name>
+            <parent-name>[results.csv]</parent-name>
+            <remote-alias>itr</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[results.csv_005663A61A684C058E8FD93F3B118D48]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>n</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[n]</local-name>
+            <parent-name>[results.csv]</parent-name>
+            <remote-alias>n</remote-alias>
+            <ordinal>2</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[results.csv_005663A61A684C058E8FD93F3B118D48]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>N</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[N]</local-name>
+            <parent-name>[results.csv]</parent-name>
+            <remote-alias>N</remote-alias>
+            <ordinal>3</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[results.csv_005663A61A684C058E8FD93F3B118D48]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>be</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[be]</local-name>
+            <parent-name>[results.csv]</parent-name>
+            <remote-alias>be</remote-alias>
+            <ordinal>4</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[results.csv_005663A61A684C058E8FD93F3B118D48]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>r</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[r]</local-name>
+            <parent-name>[results.csv]</parent-name>
+            <remote-alias>r</remote-alias>
+            <ordinal>5</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[results.csv_005663A61A684C058E8FD93F3B118D48]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>xi</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[xi]</local-name>
+            <parent-name>[results.csv]</parent-name>
+            <remote-alias>xi</remote-alias>
+            <ordinal>6</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[results.csv_005663A61A684C058E8FD93F3B118D48]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>HC_random</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[HC_random]</local-name>
+            <parent-name>[results.csv]</parent-name>
+            <remote-alias>HC_random</remote-alias>
+            <ordinal>7</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[results.csv_005663A61A684C058E8FD93F3B118D48]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>minPv_random</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[minPv_random]</local-name>
+            <parent-name>[results.csv]</parent-name>
+            <remote-alias>minPv_random</remote-alias>
+            <ordinal>8</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[results.csv_005663A61A684C058E8FD93F3B118D48]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>HC</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[HC]</local-name>
+            <parent-name>[results.csv]</parent-name>
+            <remote-alias>HC</remote-alias>
+            <ordinal>9</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[results.csv_005663A61A684C058E8FD93F3B118D48]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>minPv</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[minPv]</local-name>
+            <parent-name>[results.csv]</parent-name>
+            <remote-alias>minPv</remote-alias>
+            <ordinal>10</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[results.csv_005663A61A684C058E8FD93F3B118D48]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>HC_one_NR</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[HC_one_NR]</local-name>
+            <parent-name>[results.csv]</parent-name>
+            <remote-alias>HC_one_NR</remote-alias>
+            <ordinal>11</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[results.csv_005663A61A684C058E8FD93F3B118D48]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>minPv_one_NR</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[minPv_one_NR]</local-name>
+            <parent-name>[results.csv]</parent-name>
+            <remote-alias>minPv_one_NR</remote-alias>
+            <ordinal>12</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[results.csv_005663A61A684C058E8FD93F3B118D48]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>chisq</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[chisq]</local-name>
+            <parent-name>[results.csv]</parent-name>
+            <remote-alias>chisq</remote-alias>
+            <ordinal>13</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[results.csv_005663A61A684C058E8FD93F3B118D48]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>cos</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[cos]</local-name>
+            <parent-name>[results.csv]</parent-name>
+            <remote-alias>cos</remote-alias>
+            <ordinal>14</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[results.csv_005663A61A684C058E8FD93F3B118D48]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>HC_stripes</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[HC_stripes]</local-name>
+            <parent-name>[results.csv]</parent-name>
+            <remote-alias>HC_stripes</remote-alias>
+            <ordinal>15</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[results.csv_005663A61A684C058E8FD93F3B118D48]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>minPv_stripes</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[minPv_stripes]</local-name>
+            <parent-name>[results.csv]</parent-name>
+            <remote-alias>minPv_stripes</remote-alias>
+            <ordinal>16</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[results.csv_005663A61A684C058E8FD93F3B118D48]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <aliases enabled='yes' />
+      <column caption='succ' datatype='real' name='[Calculation_5825476524416733184]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='FLOAT([HC] &gt; 2.2)' />
+      </column>
+      <column caption='logPv' datatype='real' name='[Calculation_5825476524426145794]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='-Log([minPv])' />
+      </column>
+      <column caption='succ_rand' datatype='real' name='[Calculation_5825476524487426051]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='FLOAT([HC_random] &gt; 3)' />
+      </column>
+      <column caption='succ_minP' datatype='real' name='[Calculation_5825476524487966724]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='FLOAT([Calculation_5825476524426145794] &gt; 3)' />
+      </column>
+      <column caption='succ_chisq' datatype='real' name='[Calculation_5825476525177352197]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='FLOAT([chisq]&gt;1.1)' />
+      </column>
+      <column caption='HC one NR' datatype='real' name='[HC_one_NR]' role='measure' type='quantitative' />
+      <column caption='HC random' datatype='real' name='[HC_random]' role='measure' type='quantitative' />
+      <column caption='HC stripes' datatype='real' name='[HC_stripes]' role='measure' type='quantitative' />
+      <_.fcp.ObjectModelTableType.true...column caption='results.csv' datatype='table' name='[__tableau_internal_object_id__].[results.csv_005663A61A684C058E8FD93F3B118D48]' role='measure' type='quantitative' />
+      <column caption='Be' datatype='real' name='[be]' role='measure' type='quantitative' />
+      <column caption='Chisq' datatype='real' name='[chisq]' role='measure' type='quantitative' />
+      <column caption='Cos' datatype='real' name='[cos]' role='measure' type='quantitative' />
+      <column caption='Itr' datatype='integer' name='[itr]' role='measure' type='quantitative' />
+      <column caption='Min Pv' datatype='real' name='[minPv]' role='measure' type='quantitative' />
+      <column caption='minPv one NR' datatype='real' name='[minPv_one_NR]' role='measure' type='quantitative' />
+      <column caption='minPv random' datatype='real' name='[minPv_random]' role='measure' type='quantitative' />
+      <column caption='minPv stripes' datatype='real' name='[minPv_stripes]' role='measure' type='quantitative' />
+      <column caption='N1' datatype='integer' name='[n]' role='measure' type='quantitative' />
+      <column caption='R' datatype='real' name='[r]' role='measure' type='quantitative' />
+      <column caption='Xi' datatype='real' name='[xi]' role='measure' type='quantitative' />
+      <layout _.fcp.SchemaViewerObjectModel.false...dim-percentage='0.5' _.fcp.SchemaViewerObjectModel.false...measure-percentage='0.4' dim-ordering='alphabetic' measure-ordering='alphabetic' show-structure='true' />
+      <semantic-values>
+        <semantic-value key='[Country].[Name]' value='&quot;United States&quot;' />
+      </semantic-values>
+      <_.fcp.ObjectModelEncapsulateLegacy.true...object-graph>
+        <objects>
+          <object caption='results.csv' id='results.csv_005663A61A684C058E8FD93F3B118D48'>
+            <properties context=''>
+              <relation connection='textscan.1ogkv6d1cx9ifp15udql61ybtu1l' name='results.csv' table='[results#csv]' type='table'>
+                <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+                  <column datatype='string' name='job_id' ordinal='0' />
+                  <column datatype='integer' name='itr' ordinal='1' />
+                  <column datatype='integer' name='n' ordinal='2' />
+                  <column datatype='integer' name='N' ordinal='3' />
+                  <column datatype='real' name='be' ordinal='4' />
+                  <column datatype='real' name='r' ordinal='5' />
+                  <column datatype='real' name='xi' ordinal='6' />
+                  <column datatype='real' name='HC_random' ordinal='7' />
+                  <column datatype='real' name='minPv_random' ordinal='8' />
+                  <column datatype='real' name='HC' ordinal='9' />
+                  <column datatype='real' name='minPv' ordinal='10' />
+                  <column datatype='real' name='HC_one_NR' ordinal='11' />
+                  <column datatype='real' name='minPv_one_NR' ordinal='12' />
+                  <column datatype='real' name='chisq' ordinal='13' />
+                  <column datatype='real' name='cos' ordinal='14' />
+                  <column datatype='real' name='HC_stripes' ordinal='15' />
+                  <column datatype='real' name='minPv_stripes' ordinal='16' />
+                </columns>
+              </relation>
+            </properties>
+          </object>
+        </objects>
+      </_.fcp.ObjectModelEncapsulateLegacy.true...object-graph>
+    </datasource>
+  </datasources>
+  <worksheets>
+    <worksheet name='Sheet 4'>
+      <table>
+        <view>
+          <datasources />
+          <aggregation value='true' />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+          </pane>
+        </panes>
+        <rows />
+        <cols />
+      </table>
+      <simple-id uuid='{F0468053-7B4C-47E2-9B96-E755D4634989}' />
+    </worksheet>
+    <worksheet name='Xi==0'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='results' name='federated.1qfn7s51mvlxrl1gfs65l1eual9u' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1qfn7s51mvlxrl1gfs65l1eual9u'>
+            <column caption='succ_rand' datatype='real' name='[Calculation_5825476524487426051]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='FLOAT([HC_random] &gt; 3)' />
+            </column>
+            <column caption='HC random' datatype='real' name='[HC_random]' role='measure' type='quantitative' />
+            <column-instance column='[Calculation_5825476524487426051]' derivation='Avg' name='[avg:Calculation_5825476524487426051:qk]' pivot='key' type='quantitative' />
+            <column caption='Be' datatype='real' name='[be]' role='measure' type='quantitative' />
+            <column-instance column='[be]' derivation='None' name='[none:be:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[r]' derivation='None' name='[none:r:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[xi]' derivation='None' name='[none:xi:qk]' pivot='key' type='quantitative' />
+            <column caption='R' datatype='real' name='[r]' role='measure' type='quantitative' />
+            <column caption='Xi' datatype='real' name='[xi]' role='measure' type='quantitative' />
+          </datasource-dependencies>
+          <filter class='quantitative' column='[federated.1qfn7s51mvlxrl1gfs65l1eual9u].[none:xi:qk]' included-values='in-range'>
+            <min>0.0</min>
+            <max>0.31900000000000001</max>
+          </filter>
+          <slices>
+            <column>[federated.1qfn7s51mvlxrl1gfs65l1eual9u].[none:xi:qk]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='axis'>
+            <encoding attr='space' class='0' field='[federated.1qfn7s51mvlxrl1gfs65l1eual9u].[none:be:qk]' field-type='quantitative' max='0.98999999999999999' min='0.45000000000000001' range-type='fixed' scope='cols' type='space' />
+            <encoding attr='space' class='0' field='[federated.1qfn7s51mvlxrl1gfs65l1eual9u].[none:r:qk]' field-type='quantitative' max='3.185483870967742' min='-0.18548387096774199' range-type='fixed' scope='rows' type='space' />
+            <format attr='title' class='0' field='[federated.1qfn7s51mvlxrl1gfs65l1eual9u].[none:be:qk]' scope='cols' value='rarity' />
+          </style-rule>
+          <style-rule element='mark'>
+            <encoding attr='color' field='[federated.1qfn7s51mvlxrl1gfs65l1eual9u].[avg:Calculation_5825476524487426051:qk]' palette='orange_blue_diverging_10_0' reverse='true' type='interpolated' />
+          </style-rule>
+          <style-rule element='caption'>
+            <format attr='border-style' value='solid' />
+          </style-rule>
+          <style-rule element='legend-title'>
+            <format attr='text-align' value='center' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Square' />
+            <mark-sizing mark-sizing-setting='marks-scaling-off' />
+            <encodings>
+              <color column='[federated.1qfn7s51mvlxrl1gfs65l1eual9u].[avg:Calculation_5825476524487426051:qk]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <encoding attr='density-color' palette='density_dark_multicolor' type='interpolated' />
+                <format attr='size' value='3.3922650814056396' />
+                <format attr='density-intensity' value='1.146082878112793' />
+                <format attr='density-kernel-size' value='4.9290008544921875' />
+                <format attr='mark-transparency' value='229' />
+                <format attr='has-stroke' value='true' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[federated.1qfn7s51mvlxrl1gfs65l1eual9u].[none:r:qk]</rows>
+        <cols>[federated.1qfn7s51mvlxrl1gfs65l1eual9u].[none:be:qk]</cols>
+      </table>
+      <simple-id uuid='{B0D7D7BB-5C1C-4023-890D-74DCE88E746C}' />
+    </worksheet>
+    <worksheet name='chisq'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='results' name='federated.1qfn7s51mvlxrl1gfs65l1eual9u' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1qfn7s51mvlxrl1gfs65l1eual9u'>
+            <column caption='succ_chisq' datatype='real' name='[Calculation_5825476525177352197]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='FLOAT([chisq]&gt;1.1)' />
+            </column>
+            <column-instance column='[Calculation_5825476525177352197]' derivation='Avg' name='[avg:Calculation_5825476525177352197:qk]' pivot='key' type='quantitative' />
+            <column caption='Be' datatype='real' name='[be]' role='measure' type='quantitative' />
+            <column caption='Chisq' datatype='real' name='[chisq]' role='measure' type='quantitative' />
+            <column-instance column='[be]' derivation='None' name='[none:be:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[r]' derivation='None' name='[none:r:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[xi]' derivation='None' name='[none:xi:qk]' pivot='key' type='quantitative' />
+            <column caption='R' datatype='real' name='[r]' role='measure' type='quantitative' />
+            <column caption='Xi' datatype='real' name='[xi]' role='measure' type='quantitative' />
+          </datasource-dependencies>
+          <filter class='quantitative' column='[federated.1qfn7s51mvlxrl1gfs65l1eual9u].[none:xi:qk]' included-values='in-range'>
+            <min>0.68600000000000005</min>
+            <max>1.0</max>
+          </filter>
+          <slices>
+            <column>[federated.1qfn7s51mvlxrl1gfs65l1eual9u].[none:xi:qk]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <mark-sizing mark-sizing-setting='marks-scaling-off' />
+            <encodings>
+              <color column='[federated.1qfn7s51mvlxrl1gfs65l1eual9u].[avg:Calculation_5825476525177352197:qk]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='size' value='3.6132595539093018' />
+                <format attr='shape' value=':filled/square' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[federated.1qfn7s51mvlxrl1gfs65l1eual9u].[none:r:qk]</rows>
+        <cols>[federated.1qfn7s51mvlxrl1gfs65l1eual9u].[none:be:qk]</cols>
+      </table>
+      <simple-id uuid='{529A484F-83B9-426E-961B-79278D5CC231}' />
+    </worksheet>
+    <worksheet name='xi==1'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='results' name='federated.1qfn7s51mvlxrl1gfs65l1eual9u' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1qfn7s51mvlxrl1gfs65l1eual9u'>
+            <column caption='succ_rand' datatype='real' name='[Calculation_5825476524487426051]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='FLOAT([HC_random] &gt; 3)' />
+            </column>
+            <column caption='HC random' datatype='real' name='[HC_random]' role='measure' type='quantitative' />
+            <column-instance column='[Calculation_5825476524487426051]' derivation='Avg' name='[avg:Calculation_5825476524487426051:qk]' pivot='key' type='quantitative' />
+            <column caption='Be' datatype='real' name='[be]' role='measure' type='quantitative' />
+            <column-instance column='[be]' derivation='None' name='[none:be:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[r]' derivation='None' name='[none:r:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[xi]' derivation='None' name='[none:xi:qk]' pivot='key' type='quantitative' />
+            <column caption='R' datatype='real' name='[r]' role='measure' type='quantitative' />
+            <column caption='Xi' datatype='real' name='[xi]' role='measure' type='quantitative' />
+          </datasource-dependencies>
+          <filter class='quantitative' column='[federated.1qfn7s51mvlxrl1gfs65l1eual9u].[none:xi:qk]' included-values='in-range'>
+            <min>0.68600000000000005</min>
+            <max>1.0</max>
+          </filter>
+          <slices>
+            <column>[federated.1qfn7s51mvlxrl1gfs65l1eual9u].[none:xi:qk]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='mark'>
+            <encoding attr='color' field='[federated.1qfn7s51mvlxrl1gfs65l1eual9u].[avg:Calculation_5825476524487426051:qk]' palette='orange_blue_diverging_10_0' reverse='true' type='interpolated' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <mark-sizing mark-sizing-setting='marks-scaling-off' />
+            <encodings>
+              <color column='[federated.1qfn7s51mvlxrl1gfs65l1eual9u].[avg:Calculation_5825476524487426051:qk]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='size' value='3.6132595539093018' />
+                <format attr='shape' value=':filled/square' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[federated.1qfn7s51mvlxrl1gfs65l1eual9u].[none:r:qk]</rows>
+        <cols>[federated.1qfn7s51mvlxrl1gfs65l1eual9u].[none:be:qk]</cols>
+      </table>
+      <simple-id uuid='{7A12CFF1-5AE4-489F-AE02-FE774CF5D322}' />
+    </worksheet>
+  </worksheets>
+  <windows source-height='30'>
+    <window class='worksheet' name='Xi==0'>
+      <cards>
+        <edge name='left'>
+          <strip size='300'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='176'>
+            <card pane-specification-id='0' param='[federated.1qfn7s51mvlxrl1gfs65l1eual9u].[avg:Calculation_5825476524487426051:qk]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <viewpoint>
+        <floating-toolbar-visibility value='1' />
+        <default-map-tool-selection tool='16' />
+      </viewpoint>
+      <simple-id uuid='{4AFC761D-67B1-40BD-9070-821A812A93EE}' />
+    </window>
+    <window class='worksheet' name='xi==1'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card pane-specification-id='0' param='[federated.1qfn7s51mvlxrl1gfs65l1eual9u].[avg:Calculation_5825476524487426051:qk]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{8211BC73-C7AC-4E6A-9529-0877B57E2710}' />
+    </window>
+    <window class='worksheet' maximized='true' name='chisq'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card pane-specification-id='0' param='[federated.1qfn7s51mvlxrl1gfs65l1eual9u].[avg:Calculation_5825476525177352197:qk]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{9BEB2690-C3B7-4D91-8492-8D1DD9C609FE}' />
+    </window>
+    <window class='worksheet' name='Sheet 4'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{B5E19C05-C0E4-4ECD-B2A4-49EAA6CE8004}' />
+    </window>
+  </windows>
+</workbook>

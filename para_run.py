@@ -1,7 +1,6 @@
 import numpy as np
 import pandas as pd
 import yaml
-from datetime import datetime
 from evaluate_iteration import evaluate_iteration
 
 import logging
@@ -43,14 +42,12 @@ class ParaRun :
     
         for itr in range(nMonte) :
             for N in NN :
-                ee = np.round(N ** (-bb), 6)
-                mm = np.round(np.sqrt(2*np.log(N) * rr), 3)
                 for n in nn :
-                    for eps in ee :
-                        for mu in mm :
+                    for beta in bb :
+                        for r in rr :
                             for xi in xx :
                                 yield {'itr' : itr, 'n' : n, 'N': N,
-                                       'ep' : eps, 'mu' : mu, 'xi' : xi} 
+                                       'be' : beta, 'r' : r, 'xi' : xi} 
         
     def run(self) :
         """
@@ -61,7 +58,7 @@ class ParaRun :
         func    atomic experiment function
         """
         logging.info(f" Running...")
-        y = self._conf.iloc[:,1:].apply(lambda row : self.func(*row), axis=1)
+        y = self._conf.apply(lambda row : self._func(*row), axis=1)
         
         #self._out = pd.json_normalize(y)
         self._out = y
@@ -82,7 +79,6 @@ class ParaRun :
         logging.info(" Mapping to futures...")
 
         variables = self._conf.columns.tolist()
-        variables.remove('itr')
         self._conf.loc[:,'job_id'] = 'null'
         futures=[]
 
@@ -93,17 +89,16 @@ class ParaRun :
             futures += [fut]
         
         logging.info(" Sending futures...")
-        #progress(futures)
-        self._out['time_start'] = str(datetime.now())
-
+        progress(futures)
+        
         keys = [fut.key for fut in futures]
         #results = pd.DataFrame([fut.result() for fut in futures])
         results = pd.DataFrame(client.gather(futures), index=keys)
         logging.info(" Terminating client...")
         client.close()
-        self._out['time_end'] = str(datetime.now())
-        #import pdb; pdb.set_trace()
+    
         self._out = self._conf.set_index('job_id').join(results, how='left')
+
 
         #ddf = dd.from_pandas(self._conf.iloc[:,1:], npartitions=self._npartitions)
         #x = ddf.apply(lambda row : self._func(*row), axis=1, meta=dict)    
@@ -124,9 +119,8 @@ class ParaRun :
             "Did call gen_conf_table() ")
 
         logging.info(f" Saving results...")
-        results = self._out
-        logging.info(f" Saved {len(results)} records in {filename}.")
-        results.to_csv(filename)    
+        logging.info(f" Saved {len(self._out)} records in {filename}.")
+        self._out.to_csv(filename)    
 
 def main() :
     parser = argparse.ArgumentParser(description='Launch experiment')

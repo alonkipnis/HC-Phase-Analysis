@@ -82,10 +82,12 @@ def power_law(n, xi) :
     p = np.arange(1.,n+1) ** (-xi)
     return p / p.sum()
 
-def evaluate_iteration(n, N, ep, mu, xi, metric = 'Hellinger') :
-    logging.debug(f"Evaluating with: n={n}, N={N}, ep={ep}, mu={mu}, xi={xi}")
+def evaluate_iteration(itr, n, N, be, r, xi, metric = 'Hellinger') :
+    logging.debug(f"Evaluating with: n={n}, N={N}, be={be}, r={r}, xi={xi}")
     P = power_law(N, xi)
     
+    mu = r * np.log(N) / n / 2 
+    ep = N ** -be
     if metric == 'Hellinger' :
       QP = (np.sqrt(P) + np.sqrt(mu))**2
 
@@ -105,7 +107,7 @@ def evaluate_iteration(n, N, ep, mu, xi, metric = 'Hellinger') :
     gamma = 0.25
 
     def filter_pvals(pv) :
-        return pv[(smp1 == 0) | (smp2 == 0)]
+        return pv[~((smp1 == 0) & (smp2 == 0))]
 
     def test_stats(pv) :
         if len(pv) > 0 :
@@ -122,6 +124,7 @@ def evaluate_iteration(n, N, ep, mu, xi, metric = 'Hellinger') :
 
     # two sample non-random
     hc_rand, MinPv_rand = test_stats(filter_pvals(pv_rand))
+
     hc, MinPv = test_stats(filter_pvals(pv))
     hc_one_NR, MinPv_one_NR = test_stats(filter_pvals(pv_one_NR))
 
@@ -141,5 +144,5 @@ def evaluate_iteration(n, N, ep, mu, xi, metric = 'Hellinger') :
          'chisq' : chisq,
          'cos' : cos,
          'HC_stripes' : hc_stripes,
-         'minPv_stripes' : MinPv_stripes
+         'minPv_stripes' : MinPv_stripes,
          }
