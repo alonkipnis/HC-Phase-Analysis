@@ -1,0 +1,52 @@
+evaluate:
+  nMonte: 500
+  n: 1000
+  N: 1000
+  xi:
+    - 0.0
+    - .5
+    - 1.0
+    - 2.0
+  tests:
+    - HC
+    - minP
+    - FDR
+    - BJ
+    - Fisher
+    - chisq
+
+evaluate_probs:
+  size: 0.5 # size of test for success
+  level: 0.05 # level of significance
+  x_name: beta
+  y_name: r
+  y_null: 'min'
+  variables:
+    - HC
+  log_transform: false
+  interpolate: false
+  interpolation_grid:
+    xmin: 0.45
+    xmax: 1.0
+    ymin: 0.05
+    ymax: 3.00
+    dx: 0.01
+    dy: 0.01
+
+illustrate:
+  variables:
+    - 'HC'
+  z_value: 'prob'
+  x_value: 'beta'
+  y_value: 'r'
+  xmin: .45
+  xmax: 1
+  ymin: 0
+  ymax: 3
+  path_to_figs: 'data/08_reporting/Figs'
+  fixed_x_vals:
+    - 0.612
+    - 0.828
+
+
+

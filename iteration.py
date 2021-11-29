@@ -82,7 +82,7 @@ def power_law(n, xi) :
     p = np.arange(1.,n+1) ** (-xi)
     return p / p.sum()
 
-def evaluate_iteration(n, N, ep, mu, xi, metric = 'Hellinger') :
+def evaluate(itr, n, N, ep, mu, xi, metric = 'Hellinger') :
     logging.debug(f"Evaluating with: n={n}, N={N}, ep={ep}, mu={mu}, xi={xi}")
     P = power_law(N, xi)
     
@@ -129,17 +129,15 @@ def evaluate_iteration(n, N, ep, mu, xi, metric = 'Hellinger') :
 
     cos = cosine_sim(smp1, smp2)
 
-    pv_stripes = binom_var_test(smp1, smp2, sym=True, singleton=False).values
-    hc_stripes, MinPv_stripes = test_stats(pv_stripes)
+    #pv_stripes = binom_var_test(smp1, smp2, sym=True).values
+    #hc_stripes, MinPv_stripes = test_stats(pv_stripes)
 
     return { 'HC_random' : hc_rand,
-            'minPv_random' : MinPv_rand,
-            'HC' : hc,
-         'minPv' : MinPv,
-         'HC_one_NR' : hc_one_NR,
-         'minPv_one_NR' : MinPv_one_NR,
-         'chisq' : chisq,
-         'cos' : cos,
-         'HC_stripes' : hc_stripes,
-         'minPv_stripes' : MinPv_stripes
-         }
+             'minPv_random' : MinPv_rand,
+             'HC' : hc,
+             'minPv' : MinPv,
+             'HC_one_NR' : hc_one_NR,
+             'minPv_one_NR' : MinPv_one_NR,
+             'chisq' : chisq,
+             'cos' : cos,
+             }
