@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import yaml
 from evaluate_iteration import evaluate_iteration
+from tqdm import tqdm
 
 import logging
 logging.basicConfig(level=logging.INFO)
@@ -58,10 +59,17 @@ class ParaRun :
         func    atomic experiment function
         """
         logging.info(f" Running...")
-        y = self._conf.apply(lambda row : self._func(*row), axis=1)
+
+        results = []
+        job_ids = []
+        itr = 0
+        for params in tqdm(self._conf.iterrows()) :
+            r = self._func(*params[1])
+            results.append(r)
+            itr += 1
+            job_ids += [itr]
         
-        #self._out = pd.json_normalize(y)
-        self._out = y
+        self._out = self._conf.join(pd.DataFrame(results), how='left')
         logging.info(f" Completed.")
 
     def Dask_run(self, client) :
@@ -112,10 +120,10 @@ class ParaRun :
 
     def to_file(self, filename="results.csv") :
         if self._out.empty :
-            logging.warning(" No output detected."
+            logging.warning(" No output." 
             "Did the experiment complete running?")
         if self._conf.empty :
-            logging.warning(" No configuration talbe detected."
+            logging.warning(" No configuration detected."
             "Did call gen_conf_table() ")
 
         logging.info(f" Saving results...")

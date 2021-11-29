@@ -1,25 +1,23 @@
-nMonte: 97
+nMonte: 57
 
 variables:
   r:
     min: 0
-    max: 3
-    length: 25
+    max: 2
+    length: 31
 
   beta:
     min: .45
     max: 1
-    length: 27
+    length: 17
 
   n_features:
     - 5000
 
   n_samples:
     - 2000
-    - 50000
 
   Zipf_params:
     - .0
     - 1
-    - 2
 
