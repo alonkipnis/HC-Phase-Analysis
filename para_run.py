@@ -137,8 +137,7 @@ def main() :
         exper = ParaRun(generate, evaluate, args.p)
         exper.run()
 
-    time = time.strftime("%Y%m%d%:h%H%M")
-    exper.to_file(args.o, filename=f"results_{time}.csv")
+    exper.to_file(args.o)
     
 
 if __name__ == '__main__':
