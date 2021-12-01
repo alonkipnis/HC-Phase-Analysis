@@ -1,7 +1,8 @@
 import numpy as np
 import pandas as pd
 import yaml
-from evaluate_iteration import evaluate_iteration
+from atomic_experiment import evaluate
+from generate_configurations import generate
 from tqdm import tqdm
 
 import logging
@@ -9,11 +10,12 @@ logging.basicConfig(level=logging.INFO)
 import argparse
 
 import dask
+import time
 from dask.distributed import Client, progress
 
     
 class ParaRun :
-    def __init__(self, func, param_file='params.yaml') :
+    def __init__(self, gen_func, eval_func, param_file='params.yaml') :
         print(param_file)
         with open(param_file) as file:
             self._params = yaml.load(file, Loader=yaml.FullLoader)
@@ -21,34 +23,13 @@ class ParaRun :
 
         self._out = pd.DataFrame()
         self._npartitions = 4
-        self._func = func
+        self._func = eval_func
 
-        self._conf = pd.DataFrame(self._conf_generator())
-        logging.info(f" {len(self._conf)} configurations generated.")
-        
-    def _conf_generator(self) :
-        def gen_series(var) :
-            rec = self._params['variables'][var]
-            tp = self._params['variables'][var].get('float')
-            return np.linspace(rec['min'], rec['max'],
-                         int(rec['length'])).astype(tp)
-
-        rr = gen_series('r')
-        bb = gen_series('beta')
-        xx = self._params['variables']['Zipf_params']
-        nMonte = self._params['nMonte']
-
-        nn = self._params['variables']['n_samples']
-        NN = self._params['variables']['n_features']
+        self._conf = pd.DataFrame(gen_func(self._params['nMonte'],
+                                     self._params['variables'])
+        )
+        logging.info(f"Generated {len(self._conf)} configurations.")
     
-        for itr in range(nMonte) :
-            for N in NN :
-                for n in nn :
-                    for beta in bb :
-                        for r in rr :
-                            for xi in xx :
-                                yield {'itr' : itr, 'n' : n, 'N': N,
-                                       'be' : beta, 'r' : r, 'xi' : xi} 
         
     def run(self) :
         """
@@ -95,8 +76,8 @@ class ParaRun :
             fut = client.submit(self._func, **r[1])
             self._conf.loc[r[0], 'job_id'] = fut.key
             futures += [fut]
-        
         logging.info(" Sending futures...")
+        
         progress(futures)
         
         keys = [fut.key for fut in futures]
@@ -139,6 +120,7 @@ def main() :
     args = parser.parse_args()
     #
     
+
     if args.dask :
         logging.info(f" Using Dask:")
         if args.address == "" :
@@ -148,14 +130,15 @@ def main() :
             logging.info(f" Connecting to existing cluster at {args.address}")
             client = Client(args.address)
         logging.info(f" Dashboard at {client.dashboard_link}")
-        exper = ParaRun(evaluate_iteration, args.p)
+        exper = ParaRun(generate, evaluate, args.p)
         exper.Dask_run(client)
-        exper.to_file(args.o)
-        
+            
     else :
-        exper = ParaRun(evaluate_iteration, args.p)
+        exper = ParaRun(generate, evaluate, args.p)
         exper.run()
-        exper.to_file(args.o)
+
+    time = time.strftime("%Y%m%d%:h%H%M")
+    exper.to_file(args.o, filename=f"results_{time}.csv")
     
 
 if __name__ == '__main__':

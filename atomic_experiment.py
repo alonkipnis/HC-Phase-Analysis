@@ -69,7 +69,6 @@ def cosine_sim(c1, c2):
     """
     return cosine(c1, c2)
 
-
 def sample_from_mixture(lmd0, lmd1, eps) :
     N = len(lmd0)
     idcs = np.random.rand(N) < eps
@@ -82,7 +81,8 @@ def power_law(n, xi) :
     p = np.arange(1.,n+1) ** (-xi)
     return p / p.sum()
 
-def evaluate_iteration(itr, n, N, be, r, xi, metric = 'Hellinger') :
+
+def two_sample_poisson(n, N, be, r, xi, metric = 'Hellinger') :
     logging.debug(f"Evaluating with: n={n}, N={N}, be={be}, r={r}, xi={xi}")
     P = power_law(N, xi)
     
@@ -132,17 +132,105 @@ def evaluate_iteration(itr, n, N, be, r, xi, metric = 'Hellinger') :
 
     cos = cosine_sim(smp1, smp2)
 
-    pv_stripes = binom_var_test(smp1, smp2, sym=True, singleton=False).values
-    hc_stripes, MinPv_stripes = test_stats(pv_stripes)
+    #pv_stripes = binom_var_test(smp1, smp2, sym=True).values
+    #hc_stripes, MinPv_stripes = test_stats(pv_stripes)
 
     return { 'HC_random' : hc_rand,
-            'minPv_random' : MinPv_rand,
-            'HC' : hc,
-         'minPv' : MinPv,
-         'HC_one_NR' : hc_one_NR,
-         'minPv_one_NR' : MinPv_one_NR,
-         'chisq' : chisq,
-         'cos' : cos,
-         'HC_stripes' : hc_stripes,
-         'minPv_stripes' : MinPv_stripes,
-         }
+             'minPv_random' : MinPv_rand,
+             'HC' : hc,
+             'minPv' : MinPv,
+             'HC_one_NR' : hc_one_NR,
+             'minPv_one_NR' : MinPv_one_NR,
+             'chisq' : chisq,
+             'cos' : cos,
+             #'hc_stripes' : hc_stripes,
+             #'minPv_stripes' : MinPv_stripes,
+             }
+
+
+def two_sample_normal_pvals(n, be, r, sig):
+    """
+    2-sample normal means experiment
+    """
+
+    mu = 2 * r * np.log(n)
+    ep = n ** -be
+
+    Z1 = sample_from_normal_mix(n, ep/2, mu, sig)
+    Z2 = sample_from_normal_mix(n, ep/2, mu, sig)
+
+    Z = (Z1 - Z2)/np.sqrt(2)
+    pvals = 2*norm.cdf(- np.abs(Z))
+    return pvals
+
+def sample_from_normal_mix(n, ep, mu, sig):
+    """
+    Sample from `n` times from a normal 
+    mixture with sparsity parameter controlled
+    by `be` and intensity of non-null mixture
+    is determined by `r` with std `sig`
+    """
+
+    idcs = np.random.rand(int(n)) < ep 
+
+    Z = np.random.randn(int(n))
+    Z[idcs] = sig*Z[idcs] + mu
+    return Z
+
+def one_sample_normal_pvals(n, be, r, sig):
+    """
+    1-sample normal means experiment
+    """
+    mu = 2 * r * np.log(n)
+    ep = n ** -be
+
+    Z = sample_from_normal_mix(n, ep, mu, sig)
+    return norm.cdf(- np.abs(Z))
+
+
+def two_sample_normal_exp(n, beta, r, sig):
+
+    gamma = .25
+    pvals = two_sample_normal_pvals(n, beta, r, sig)
+    
+    # tests:
+    fisher = -2*np.log(pvals).mean()
+    _hc = HC(pvals[pvals < 1]) 
+    hc,_ = _hc.HC()
+    hcstar,_ = _hc.HCstar()
+    minP = -2*np.log(pvals.min())
+    bj = _hc.berk_jones()
+
+    return {'hc' : hc,
+    'hcstar' : hcstar,
+    'fisher' : fisher,
+    'minP' : minP,
+    'bj' : bj,
+    }
+
+def one_sample_normal_exp(n, beta, r, sig):
+
+    gamma = .25
+
+    pvals = one_sample_normal_pvals(n, beta, r, sig)
+    
+    # tests:
+    fisher = -2*np.log(pvals).mean()
+    _hc = HC(pvals[pvals < 1]) 
+    hc,_ = _hc.HC()
+    hcstar,_ = _hc.HCstar()
+    minP = -2*np.log(pvals.min())
+    bj = _hc.berk_jones()
+
+    return {'hc' : hc,
+    'hcstar' : hcstar,
+    'fisher' : fisher,
+    'minP' : minP,
+    'bj' : bj,
+    }
+
+def evaluate(itr, n, beta, r, sig) :
+    logging.debug(f"Evaluating with: n={n}, beta={beta}, r={r}, sig={sig}")
+    return one_sample_normal_exp(n, beta, r, sig)
+
+
