@@ -113,7 +113,7 @@ class ParaRun :
 
 def main() :
     parser = argparse.ArgumentParser(description='Launch experiment')
-    parser.add_argument('-o', type=str, help='output file', default='results.csv')
+    parser.add_argument('-o', type=str, help='output file', default='')
     parser.add_argument('-p', type=str, help='yaml parameters file.', default='params.yaml')
     parser.add_argument('--dask', action='store_true')
     parser.add_argument('--address', type=str, default="")
@@ -137,7 +137,11 @@ def main() :
         exper = ParaRun(generate, evaluate, args.p)
         exper.run()
 
-    exper.to_file(args.o)
+    output_filename=args.o
+    if output_filename == "":
+        output_filename = f"results_{len(exper._conf)}.csv"
+
+    exper.to_file(output_filename)
     
 
 if __name__ == '__main__':
