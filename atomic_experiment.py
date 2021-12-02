@@ -185,7 +185,7 @@ def one_sample_normal_pvals(n, be, r, sig):
     ep = n ** -be
 
     Z = sample_from_normal_mix(n, ep, mu, sig)
-    return norm.cdf(- np.abs(Z))
+    return norm.sf(Z)
 
 
 def two_sample_normal_exp(n, beta, r, sig):
