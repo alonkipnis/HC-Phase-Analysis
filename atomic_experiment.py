@@ -188,27 +188,16 @@ def one_sample_normal_pvals(n, be, r, sig):
     return norm.sf(Z)
 
 
-def two_sample_normal_exp(n, beta, r, sig):
 
-    gamma = .25
-    pvals = two_sample_normal_pvals(n, beta, r, sig)
-    
-    # tests:
-    fisher = -2*np.log(pvals).mean()
-    _hc = HC(pvals[pvals < 1]) 
-    hc,_ = _hc.HC()
-    hcstar,_ = _hc.HCstar()
-    minP = -2*np.log(pvals.min())
-    bj = _hc.berk_jones()
+def test_fdr(pvals):
+    n_features = len(pvals)
+    sv = np.sort(pvals)
+    uu = np.arange(1, n_features + 1) #/  n_features
+    return np.min(sv / uu)
 
-    return {'hc' : hc,
-    'hcstar' : hcstar,
-    'fisher' : fisher,
-    'minP' : minP,
-    'bj' : bj,
-    }
 
-def one_sample_normal_exp(n, beta, r, sig):
+def evaluate(itr, n, beta, r, sig) :
+    logging.debug(f"Evaluating with: n={n}, beta={beta}, r={r}, sig={sig}")
 
     gamma = .25
 
@@ -216,21 +205,21 @@ def one_sample_normal_exp(n, beta, r, sig):
     
     # tests:
     fisher = -2*np.log(pvals).mean()
-    _hc = HC(pvals[pvals < 1]) 
+    _hc = HC(pvals) 
     hc,_ = _hc.HC()
     hcstar,_ = _hc.HCstar()
     minP = -2*np.log(pvals.min())
     bj = _hc.berk_jones()
+    fdr = test_fdr(pvals)
 
-    return {'hc' : hc,
+    return {
+    'hc' : hc,
     'hcstar' : hcstar,
     'fisher' : fisher,
     'minP' : minP,
     'bj' : bj,
+    'fdr' : fdr
     }
-
-def evaluate(itr, n, beta, r, sig) :
-    logging.debug(f"Evaluating with: n={n}, beta={beta}, r={r}, sig={sig}")
-    return one_sample_normal_exp(n, beta, r, sig)
+    
 
 
