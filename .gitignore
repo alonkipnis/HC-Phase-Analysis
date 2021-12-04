@@ -8,3 +8,4 @@
 *.twd #tableau
 *.tfl
 *.twd
+*local*
