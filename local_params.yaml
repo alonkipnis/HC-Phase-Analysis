@@ -1,0 +1,35 @@
+nMonte: 1000
+
+variables:
+  r: 
+    type: 'range'
+    min: 0
+    max: 1.2
+    length: 25
+
+  beta:
+    type: 'list'
+    values: 
+      - .45
+      - .5
+      - .55
+      - .6
+      - .65
+      - .7
+      - .75
+      - .8
+      - .85
+      - .9
+      - .95
+
+  n_samples:
+    type: 'list'
+    values:
+      - 10000
+
+  sigma:
+    type: 'list'
+    values:
+      - .5
+      - 1.0
+      - 2.0
