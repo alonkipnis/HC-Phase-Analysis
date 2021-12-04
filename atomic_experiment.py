@@ -210,7 +210,7 @@ def evaluate(itr, n, beta, r, sig) :
     hcstar,_ = _hc.HCstar()
     minP = -2*np.log(pvals.min())
     bj = _hc.berk_jones()
-    fdr = test_fdr(pvals)
+    fdr = -2*np.log(test_fdr(pvals))
 
     return {
     'hc' : hc,
