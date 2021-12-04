@@ -153,7 +153,7 @@ def two_sample_normal_pvals(n, be, r, sig):
     2-sample normal means experiment
     """
 
-    mu = 2 * r * np.log(n)
+    mu = np.sqrt(2 * r * np.log(n))
     ep = n ** -be
 
     Z1 = sample_from_normal_mix(n, ep/2, mu, sig)
