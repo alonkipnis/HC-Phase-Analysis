@@ -17,6 +17,7 @@ from dask.distributed import Client, progress
 class ParaRun :
     def __init__(self, gen_func, eval_func, params='params.yaml') :
         if type(params) == str :
+            param_file = params
             logging.info(f" Reading parameters from {param_file}.")
             with open(param_file) as file:
                 self._params = yaml.load(file, Loader=yaml.FullLoader)

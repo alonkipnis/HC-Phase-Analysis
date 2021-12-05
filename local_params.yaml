@@ -10,14 +10,12 @@ variables:
   beta:
     type: 'list'
     values: 
-      - .6
-      - .9
+      - .7
 
   n_samples:
     type: 'list'
     values:
-      - 1000
-      - 10000
+      - 100000
 
   sigma:
     type: 'list'
