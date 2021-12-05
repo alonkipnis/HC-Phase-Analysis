@@ -15,11 +15,13 @@ from dask.distributed import Client, progress
 
     
 class ParaRun :
-    def __init__(self, gen_func, eval_func, param_file='params.yaml') :
-        print(param_file)
-        with open(param_file) as file:
-            self._params = yaml.load(file, Loader=yaml.FullLoader)
-        logging.info(f" Reading parameters from {param_file}.")
+    def __init__(self, gen_func, eval_func, params='params.yaml') :
+        if type(params) == str :
+            logging.info(f" Reading parameters from {param_file}.")
+            with open(param_file) as file:
+                self._params = yaml.load(file, Loader=yaml.FullLoader)
+        else :
+            self._params = params
 
         self._out = pd.DataFrame()
         self._npartitions = 4
@@ -63,7 +65,7 @@ class ParaRun :
 
         """
 
-        logging.info(f" Running on Dask...")
+        logging.info(f" Running on Dask.")
 
         logging.info(" Mapping to futures...")
 
@@ -76,12 +78,11 @@ class ParaRun :
             fut = client.submit(self._func, **r[1])
             self._conf.loc[r[0], 'job_id'] = fut.key
             futures += [fut]
-        logging.info(" Sending futures...")
+        logging.info(" Gathering...")
         
         progress(futures)
         
         keys = [fut.key for fut in futures]
-        #results = pd.DataFrame([fut.result() for fut in futures])
         results = pd.DataFrame(client.gather(futures), index=keys)
         logging.info(" Terminating client...")
         client.close()

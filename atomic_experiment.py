@@ -172,7 +172,6 @@ def sample_from_normal_mix(n, ep, mu, sig):
     """
 
     idcs = np.random.rand(int(n)) < ep 
-
     Z = np.random.randn(int(n))
     Z[idcs] = sig*Z[idcs] + mu
     return Z

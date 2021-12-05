@@ -1,4 +1,4 @@
-nMonte: 100
+nMonte: 1000
 
 variables:
   r: 
@@ -16,6 +16,7 @@ variables:
   n_samples:
     type: 'list'
     values:
+      - 1000
       - 10000
 
   sigma:
