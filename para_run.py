@@ -141,7 +141,9 @@ def main() :
 
     output_filename=args.o
     if output_filename == "":
-        output_filename = f"results_{len(exper._conf)}.csv"
+        import pdb; pdb.set_trace()
+        dig = hash(str(exper._params))
+        output_filename = f"results_{dig}.csv"
 
     exper.to_file(output_filename)
     

@@ -1,4 +1,4 @@
-nMonte: 1000
+nMonte: 1
 
 variables:
   r: 
@@ -10,7 +10,8 @@ variables:
   beta:
     type: 'list'
     values: 
-      - .7
+      - .6
+      - .9
 
   n_samples:
     type: 'list'
