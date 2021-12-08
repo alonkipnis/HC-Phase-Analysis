@@ -8,4 +8,4 @@ __pychache__/*
 *.twd #tableau
 *.tfl
 *.twd
-*local*
+local*
